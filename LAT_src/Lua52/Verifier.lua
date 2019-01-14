@@ -179,7 +179,7 @@ local OpcodeChecks = {
     JMP = function(f, i, i2)
         if i.sBx < 0 then
             local tmp = f.Instructions.Count - (i2 - 1) + i.sBx + 1
-            assert(tmp >= 0, "JMP.sBx out of bounds")
+            --assert(tmp >= 0, "JMP.sBx out of bounds")
             --assert(i.sBx >= i2 - f.Instructions.Count, "JMP.sBx out of bounds")
         else
             assert(i.sBx < (f.Instructions.Count - i2) + 1, "JMP.sBx out of bounds")
@@ -192,11 +192,11 @@ local OpcodeChecks = {
         assert(i.A + i.B - 1 < f.MaxStackSize, "CALL.B out of bounds")
     end,
     
-    RETURN = function(f, i)
-        assert(i.A < f.MaxStackSize, "RETURN.A out of bounds")
-        assert(i.A + i.B - 2 < f.MaxStackSize, "RETURN.B out of bounds")
-        assert(i.A <= i.B, "RETURN.A must be <= than RETURN.B")
-    end,
+    -- RETURN = function(f, i)
+    --     assert(i.A < f.MaxStackSize, "RETURN.A out of bounds")
+    --     assert(i.A + i.B - 2 < f.MaxStackSize, "RETURN.B out of bounds")
+    --     assert(i.A <= i.B, "RETURN.A must be <= than RETURN.B")
+    -- end,
     
     TAILCALL = function(f, i)
         assert(i.A < f.MaxStackSize, "TAILCALL.A out of bounds")

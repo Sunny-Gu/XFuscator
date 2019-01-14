@@ -34,8 +34,8 @@ XFuscator.DumpString = function(x)
     end)
 end
 
-local function obfuscate(code, level, mxLevel, useLoadstring, makeFluff, randomComments, step2, useUglifier, encryptConstants, useTD)
-    if useLoadstring == nil then useLoadstring = true end
+local function obfuscate(code, level, mxLevel, useload, makeFluff, randomComments, step2, useUglifier, encryptConstants, useTD)
+    if useload == nil then useload = true end
     level = level or 1
     mxLevel = mxLevel or 2
     if makeFluff == nil then makeFluff = true end
@@ -88,7 +88,7 @@ local function obfuscate(code, level, mxLevel, useLoadstring, makeFluff, randomC
     
     a = Format_Mini(ast) -- Extra security (renames code from 'tmp' and CONSTANT_POOL, and constant encryption)
     
-    if useLoadstring then
+    if useload then
         print("Precompiling ...")
         a = XFuscator.Precompile(a)
     end
@@ -96,10 +96,10 @@ local function obfuscate(code, level, mxLevel, useLoadstring, makeFluff, randomC
     local a2
     if step2 == true then
         print("Step 2 ...")
-        -- Convert to char/table/loadstring thing
+        -- Convert to char/table/load thing
         a2 = XFuscator.Step2(a, GenerateFluff, useTD)
     else
-        a2 = "return loadstring('" .. dumpString(a) .. "')()"
+        a2 = "return load('" .. dumpString(a) .. "')()"
     end
     
     if randomComments then

@@ -247,7 +247,7 @@ return {
   new256 = new256,
 }
 ]]
-local sha = loadstring(shaCode2)()
+local sha = load(shaCode2)()
 
 return function(code)
     local hash = sha.hash256(code)
